@@ -6,13 +6,13 @@ This Streamlit app was developed for a graduate-level Business Intelligence cour
 
 ---
 
-## 📂 Project Structure
-├── Data/ # Cleaned dataset with uniform sampling across states
-├── Modules/ # Reusable data processing and visualization scripts
-├── assets/ # Icons, logos, masks, and supporting visuals
-├── app.py # Main Streamlit app entry point
-├── requirements.txt # Python dependencies
-└── README.md # Project documentation (you are here)
+## 📚 Project Structure
+
+- `/Data` – files containing Yelp academic dataset: https://business.yelp.com/data/resources/open-dataset/
+- `/Modules` – Python scripts used for visualizations
+- `/assets` – Images and logos used for visualizations
+- `app.py` – Main Python Script to build the GUI Dashboard
+- `requirements.txt` – Python dependencies
 
 
 ---

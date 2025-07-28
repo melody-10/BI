@@ -30,7 +30,7 @@ with col2:
 # Filter Data
 filtered_df = filter_data(df, state=selected_state, categories=selected_categories)
 filtered_df.reset_index(drop=True, inplace=True)
-export_filtered_data(filtered_df, state_code=selected_state)
+download_filtered_data(filtered_df, state_code=selected_state)
 
 # Show filtered data
 st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")

@@ -5,7 +5,7 @@ from Modules.UI.layout_config import set_layout
 from Modules.UI.header import show_header
 from Modules.Utils.load_data import load_dataset
 from Modules.Utils.filter_data import filter_data
-from Modules.Charts.map_utils import show_state_map
+from Modules.Charts.map_utils import show_business_map
 from streamlit_folium import st_folium
 
 # Layout
@@ -37,4 +37,4 @@ st.dataframe(filtered_df, height=200)
 # Map Visualization
 st.markdown("## 🗺️ Business Locations Map")
 
-show_state_map(selected_state, filtered_df)
+show_business_map(selected_state, filtered_df)

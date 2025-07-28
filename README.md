@@ -44,7 +44,7 @@ Additionally, business categories were one-hot encoded into **338 binary columns
 ---
 
 ## 🚀 Getting Started
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Streamlit-logo-primary-colormark-darktext.png/1280px-Streamlit-logo-primary-colormark-darktext.png" width=75> APP: https://business.yelp.com/data/resources/open-dataset/
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Streamlit-logo-primary-colormark-darktext.png/1280px-Streamlit-logo-primary-colormark-darktext.png" width=75> APP: [https://business.yelp.com/data/resources/open-dataset/](https://up-bi-eag.streamlit.app/)
 
 
 

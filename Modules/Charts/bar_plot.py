@@ -1,4 +1,5 @@
 import plotly.express as px
+import streamlit as st
 
 
 def bar_plotly(data):

@@ -39,7 +39,7 @@ download_filtered_data(filtered_df, state_code=selected_state)
 st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")
 st.dataframe(filtered_df[["name", "city", "stars", "review_count"]], height=200)
 
-category_counts = filtered_df.iloc[:, 11:].sum().sort_values(ascending=False)
+category_counts = filtered_df.iloc[:, 11:].sum().sort_values(ascending=False).head(20)
 
 # Layout side by side
 col_map, col_chart = st.columns([1, 2])  # Adjust ratio as needed

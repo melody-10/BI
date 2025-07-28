@@ -27,8 +27,7 @@ def show_state_map(state_code, df):
     if not geojson_file:
         st.warning(f"No GeoJSON boundary data available for {state_code}.")
         return None
-
-    geojson_path = f"topojson/countries/us-states/{geojson_file}"
+    geojson_path = f"https://raw.githubusercontent.com/edavgaun/topojson/refs/heads/master/countries/us-states/{geojson_file}"
     try:
         with open(geojson_path, "r") as f:
             geo_data = json.load(f)

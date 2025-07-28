@@ -1,3 +1,5 @@
+import pandas as pd
+
 def filter_data(df: pd.DataFrame, state: str = None, category: str = None) -> pd.DataFrame:
     """
     Filters the DataFrame by state and/or business category.

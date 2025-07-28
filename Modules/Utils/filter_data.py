@@ -2,12 +2,13 @@ import pandas as pd
 
 def filter_data(df: pd.DataFrame, state: str = None, categories: list = None) -> pd.DataFrame:
     """
-    Filters the DataFrame by state and/or one-hot-encoded business categories.
+    Filters the DataFrame by state and one-hot-encoded categories. 
+    Only keeps rows where ALL selected categories are present (==1).
 
     Parameters:
     - df (pd.DataFrame): The full Yelp dataset.
     - state (str): Two-letter state code to filter by (e.g., 'CA').
-    - categories (list of str): One or more one-hot-encoded category column names.
+    - categories (list of str): One-hot-encoded category columns to restrict by.
 
     Returns:
     - pd.DataFrame: Filtered DataFrame.
@@ -16,9 +17,8 @@ def filter_data(df: pd.DataFrame, state: str = None, categories: list = None) ->
         df = df[df['state'] == state]
 
     if categories:
-        # Ensure all categories are valid column names
         valid_categories = [cat for cat in categories if cat in df.columns]
-        if valid_categories:
-            df = df[df[valid_categories].sum(axis=1) > 0]
+        for cat in valid_categories:
+            df = df[df[cat] == 1]
 
     return df

@@ -1,5 +1,4 @@
 import pandas as pd
-import streamlit as st
 
 def filter_data(df: pd.DataFrame, state: str = None, categories: list = None) -> pd.DataFrame:
     """
@@ -16,7 +15,6 @@ def filter_data(df: pd.DataFrame, state: str = None, categories: list = None) ->
     """
     if state:
         df = df[df['state'] == state]
-    st.write(categories)
 
     if categories:
         valid_categories = [cat for cat in categories if cat in df.columns]

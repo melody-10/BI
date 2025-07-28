@@ -5,8 +5,9 @@ from Modules.UI.layout_config import set_layout
 from Modules.UI.header import show_header
 from Modules.Utils.load_data import load_dataset
 from Modules.Utils.filter_data import filter_data
-from Modules.Charts.map_utils import show_business_map
 from Modules.Utils.export_data import download_filtered_data
+from Modules.Charts.map_utils import show_business_map
+from Modules.Charts.bar_plot import bar_plotly
 from streamlit_folium import st_folium
 
 # Layout
@@ -38,16 +39,24 @@ download_filtered_data(filtered_df, state_code=selected_state)
 st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")
 st.dataframe(filtered_df[["name", "city", "stars", "review_count"]], height=200)
 
-# ---- Show Map if filters changed ----
-filters_changed = (
-    selected_state != st.session_state.prev_selected_state or
-    tuple(sorted(selected_categories)) != tuple(sorted(st.session_state.prev_selected_categories))
-)
+category_counts = filtered_df.iloc[:, 11:].sum().sort_values(ascending=False)
 
-map_df = filtered_df.copy()
-if len(map_df) > 500:
-    map_df = map_df.sample(500, random_state=42)
+# Layout side by side
+col_map, col_chart = st.columns([1, 2])  # Adjust ratio as needed
 
-st.markdown("## 🗺️ Business Locations Map")
-st.caption("Only up to 500 businesses are displayed to avoid rendering issues.")
-show_business_map(map_df, state_code=selected_state)
+# ---- Left Column: Map ----
+with col_map:
+    st.markdown("## 🗺️ Business Locations Map")
+    st.caption("Only up to 500 businesses are displayed to avoid rendering issues.")
+    map_df = filtered_df.copy()
+    if len(map_df) > 500:
+        map_df = map_df.sample(500, random_state=42)
+    show_business_map(map_df, state_code=selected_state)
+
+    st.markdown("## 🗺️ Business Locations Map")
+    st.caption("Only up to 500 businesses are displayed to avoid rendering issues.")
+    show_business_map(map_df, state_code=selected_state)
+
+# ---- Right Column: Category Frequency Bar Chart ----
+with col_chart:
+bar_plotly(category_counts)

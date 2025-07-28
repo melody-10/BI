@@ -38,6 +38,3 @@ st.dataframe(filtered_df, height=200)
 st.markdown("## 🗺️ Business Locations Map")
 
 show_state_map(selected_state, filtered_df)
-
-if map_object:
-    st_folium(map_object, width=700, height=500)

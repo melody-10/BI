@@ -18,8 +18,7 @@ df = load_dataset("Data/Yelp_sampled_df.parquet")
 # Show Header
 show_header("🧠 Business Intelligence Explorer")
 
-# Sidebar or horizontal layout for filters
-# Sidebar or horizontal layout for filters
+# Filter Widgets
 col1, col2 = st.columns(2)
 
 with col1:
@@ -32,7 +31,7 @@ with col2:
 if "prev_selected_state" not in st.session_state:
     st.session_state.prev_selected_state = selected_state
 if "prev_selected_categories" not in st.session_state:
-    st.session_state.prev_selected_categories = selected_categories
+    st.session_state.prev_selected_categories = selected_categories.copy()
 
 # ---- Data Filtering (always needed for table + export) ----
 filtered_df = filter_data(df, state=selected_state, categories=selected_categories)
@@ -48,12 +47,12 @@ st.dataframe(filtered_df[["name", "city", "stars", "review_count"]], height=200)
 # ---- Show Map if filters changed ----
 filters_changed = (
     selected_state != st.session_state.prev_selected_state or
-    selected_categories != st.session_state.prev_selected_categories
+    tuple(sorted(selected_categories)) != tuple(sorted(st.session_state.prev_selected_categories))
 )
 
 if filters_changed:
     st.session_state.prev_selected_state = selected_state
-    st.session_state.prev_selected_categories = selected_categories
+    st.session_state.prev_selected_categories = selected_categories.copy()
 
     map_df = filtered_df.copy()
     if len(map_df) > 500:

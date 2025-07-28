@@ -28,5 +28,5 @@ with col2:
 filtered_df = filter_data(df, state=selected_state, categories=selected_categories)
 
 # Show filtered data
-st.markdown(f"### Showing results for `{selected_state}` with selected categories: {} Total number of Observations".format(len(filtered_df))
+st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")
 st.dataframe(filtered_df.head(10))

@@ -44,21 +44,5 @@ map_df = filtered_df.copy()
 if len(map_df) > 500:
     map_df = map_df.sample(500, random_state=42)
 
-# Session state to persist map view
-if "map_center" not in st.session_state:
-    st.session_state.map_center = None
-if "map_zoom" not in st.session_state:
-    st.session_state.map_zoom = 7
-
-# Show the map and capture view
-_, new_center, new_zoom = show_business_map(
-    map_df,
-    state_code=selected_state,
-    map_center=st.session_state.map_center,
-    zoom=st.session_state.map_zoom
-)
-
-# Update session state with latest view
-st.session_state.map_center = new_center
-st.session_state.map_zoom = new_zoom
+show_business_map(map_df, state_code=selected_state,)
 

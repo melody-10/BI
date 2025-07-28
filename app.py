@@ -59,4 +59,4 @@ with col_map:
 
 # ---- Right Column: Category Frequency Bar Chart ----
 with col_chart:
-bar_plotly(category_counts)
+    bar_plotly(category_counts)

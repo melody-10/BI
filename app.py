@@ -53,10 +53,6 @@ with col_map:
         map_df = map_df.sample(500, random_state=42)
     show_business_map(map_df, state_code=selected_state)
 
-    st.markdown("## 🗺️ Business Locations Map")
-    st.caption("Only up to 500 businesses are displayed to avoid rendering issues.")
-    show_business_map(map_df, state_code=selected_state)
-
 # ---- Right Column: Category Frequency Bar Chart ----
 with col_chart:
     bar_plotly(category_counts)

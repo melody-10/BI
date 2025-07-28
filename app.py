@@ -25,12 +25,7 @@ with col2:
     selected_categories = st.multiselect("🏷️ Select Business Categories", sorted(df.columns[11:]))
 
 # Filter Data
-filtered_df = df[df["state"] == selected_state]
-
-# Apply category filters
-if selected_categories:
-    # Filter rows where any selected category column is 1
-    filtered_df = filtered_df[filtered_df[selected_categories].any(axis=1)]
+filtered_df = filter_data(df, state=selected_state, categories=selected_categories)
 
 # Show filtered data
 st.markdown(f"### Showing results for `{selected_state}` with selected categories")

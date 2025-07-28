@@ -32,7 +32,7 @@ filtered_df.reset_index(drop=True, inplace=True)
 
 # Show filtered data
 st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")
-st.dataframe(filtered_df, height=200)
+st.dataframe(filtered_df[["name", "city", "stars", "review_count"]], height=200)
 
 # Map Visualization
 st.markdown("## 🗺️ Business Locations Map")

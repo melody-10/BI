@@ -1,5 +1,6 @@
 import pandas as pd
 
+@st.cache_data
 def filter_data(df: pd.DataFrame, state: str = None, categories: list = None) -> pd.DataFrame:
     """
     Filters the DataFrame by state and one-hot-encoded categories. 

@@ -27,12 +27,6 @@ with col1:
 with col2:
     selected_categories = st.multiselect("🏷️ Select Business Categories", sorted(df.columns[11:]), key="selected_categories")
 
-# ---- Session State Initialization ----
-if "prev_selected_state" not in st.session_state:
-    st.session_state.prev_selected_state = selected_state
-if "prev_selected_categories" not in st.session_state:
-    st.session_state.prev_selected_categories = selected_categories.copy()
-
 # ---- Data Filtering (always needed for table + export) ----
 filtered_df = filter_data(df, state=selected_state, categories=selected_categories)
 filtered_df.reset_index(drop=True, inplace=True)
@@ -50,14 +44,10 @@ filters_changed = (
     tuple(sorted(selected_categories)) != tuple(sorted(st.session_state.prev_selected_categories))
 )
 
-if filters_changed:
-    st.session_state.prev_selected_state = selected_state
-    st.session_state.prev_selected_categories = selected_categories.copy()
+map_df = filtered_df.copy()
+if len(map_df) > 500:
+    map_df = map_df.sample(500, random_state=42)
 
-    map_df = filtered_df.copy()
-    if len(map_df) > 500:
-        map_df = map_df.sample(500, random_state=42)
-
-    st.markdown("## 🗺️ Business Locations Map")
-    st.caption("Only up to 500 businesses are displayed to avoid rendering issues.")
-    show_business_map(map_df, state_code=selected_state)
+st.markdown("## 🗺️ Business Locations Map")
+st.caption("Only up to 500 businesses are displayed to avoid rendering issues.")
+show_business_map(map_df, state_code=selected_state)

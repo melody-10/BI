@@ -37,4 +37,7 @@ st.dataframe(filtered_df[["name", "city", "stars", "review_count"]], height=200)
 # Map Visualization
 st.markdown("## 🗺️ Business Locations Map")
 
-show_business_map(filtered_df, selected_state)
+map_df = filtered_df.copy()
+if len(map_df) > 500:
+    map_df = map_df.sample(500, random_state=42)
+show_business_map(map_df, selected_state)

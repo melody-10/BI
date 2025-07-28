@@ -37,4 +37,4 @@ st.dataframe(filtered_df, height=200)
 # Map Visualization
 st.markdown("## 🗺️ Business Locations Map")
 
-show_business_map(selected_state, filtered_df)
+show_business_map(filtered_df, selected_state)

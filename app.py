@@ -5,6 +5,8 @@ from Modules.UI.layout_config import set_layout
 from Modules.UI.header import show_header
 from Modules.Utils.load_data import load_dataset
 from Modules.Utils.filter_data import filter_data
+from Modules.Charts.map_utils import show_state_map
+from streamlit_folium import st_folium
 
 # Layout
 set_layout()
@@ -31,3 +33,11 @@ filtered_df.reset_index(drop=True, inplace=True)
 # Show filtered data
 st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")
 st.dataframe(filtered_df, height=200)
+
+# Map Visualization
+st.markdown("## 🗺️ Business Locations Map")
+
+map_object = show_state_map(selected_state, filtered_df)
+
+if map_object:
+    st_folium(map_object, width=700, height=500)

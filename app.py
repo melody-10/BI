@@ -6,6 +6,7 @@ from Modules.UI.header import show_header
 from Modules.Utils.load_data import load_dataset
 from Modules.Utils.filter_data import filter_data
 from Modules.Charts.map_utils import show_business_map
+from Modules.Utils.export_data import download_filtered_data
 from streamlit_folium import st_folium
 
 # Layout
@@ -29,6 +30,7 @@ with col2:
 # Filter Data
 filtered_df = filter_data(df, state=selected_state, categories=selected_categories)
 filtered_df.reset_index(drop=True, inplace=True)
+export_filtered_data(filtered_df, state_code=selected_state)
 
 # Show filtered data
 st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")

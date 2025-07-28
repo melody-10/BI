@@ -30,4 +30,4 @@ filtered_df.reset_index(drop=True, inplace=True)
 
 # Show filtered data
 st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")
-st.dataframe(filtered_df.head(10))
+st.dataframe(filtered_df, height=400)

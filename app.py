@@ -57,6 +57,10 @@ with col_chart:
     
     st.markdown("## 📊 Business Composition according to the selected data")
     bar_plotly(category_counts.iloc[start_index:start_index+20])
+    
     # ---- Export Button ----
+    # Caption above download button
     st.caption("You can export your data here:")
-    download_filtered_data(filtered_df, state_code=selected_state)
+    center_col = st.columns([1, 2, 1])[1]
+    with center_col:
+        download_filtered_data(filtered_df, state_code=selected_state)

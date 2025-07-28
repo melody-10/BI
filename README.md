@@ -1,4 +1,4 @@
-# 🧠 BI (Inteligencia de Negocios) – <br> Yelp Academic Dataset Explorer
+# 🧠 BI (Inteligencia de Negocios) <br> Yelp Academic Dataset Explorer
 
 This Streamlit app was developed for a graduate-level Business Intelligence course. It provides interactive exploration and analysis of real-world business data, using the [Yelp Academic Dataset]
 

@@ -1,6 +1,8 @@
 import folium
 import json
 import streamlit as st
+import requests
+from streamlit_folium import st_folium
 
 # Dictionary mapping state abbreviations to their respective GeoJSON filenames
 STATE_GEOJSON_MAP = {
@@ -17,22 +19,28 @@ STATE_GEOJSON_MAP = {
     'AB': None  # Alberta, Canada – not in the US dataset
 }
 
-
 def show_state_map(state_code, df):
     """
     Render a Folium map for the selected state with business locations.
+
+    Parameters:
+    - state_code (str): Two-letter state abbreviation.
+    - df (pd.DataFrame): Filtered DataFrame with 'latitude', 'longitude', and 'name'.
     """
     geojson_file = STATE_GEOJSON_MAP.get(state_code)
 
     if not geojson_file:
         st.warning(f"No GeoJSON boundary data available for {state_code}.")
         return None
-    geojson_path = f"https://raw.githubusercontent.com/edavgaun/topojson/refs/heads/master/countries/us-states/{geojson_file}"
+
+    geojson_url = f"https://raw.githubusercontent.com/edavgaun/topojson/master/countries/us-states/{geojson_file}"
+
     try:
-        with open(geojson_path, "r") as f:
-            geo_data = json.load(f)
-    except FileNotFoundError:
-        st.warning(f"GeoJSON file for {state_code} not found at path: {geojson_path}")
+        response = requests.get(geojson_url)
+        response.raise_for_status()
+        geo_data = response.json()
+    except requests.RequestException:
+        st.warning(f"GeoJSON file for {state_code} not found at URL: {geojson_url}")
         return None
 
     if df.empty:
@@ -60,5 +68,7 @@ def show_state_map(state_code, df):
             popup=row.get("name", "Unnamed"),
             icon=folium.Icon(color="red", icon="info-sign")
         ).add_to(m)
+
+    st_folium(m, width=800, height=500)
 
     return m

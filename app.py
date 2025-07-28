@@ -19,30 +19,37 @@ df = load_dataset("Data/Yelp_sampled_df.parquet")
 show_header("🧠 Business Intelligence Explorer")
 
 # Sidebar or horizontal layout for filters
+# Filter widgets
 col1, col2 = st.columns(2)
 
 with col1:
-    selected_state = st.selectbox("📍 Select a State", sorted(df["state"].unique()))
+    selected_state = st.selectbox("📍 Select a State", sorted(df["state"].unique()), key="selected_state")
 
 with col2:
-    selected_categories = st.multiselect("🏷️ Select Business Categories", sorted(df.columns[11:]))
+    selected_categories = st.multiselect("🏷️ Select Business Categories", sorted(df.columns[11:]), key="selected_categories")
 
-# Filter Data
+# Initialize session state if not set
+if "prev_selected_state" not in st.session_state:
+    st.session_state.prev_selected_state = selected_state
+if "prev_selected_categories" not in st.session_state:
+    st.session_state.prev_selected_categories = selected_categories
+
+# Filter data (do this regardless of trigger)
 filtered_df = filter_data(df, state=selected_state, categories=selected_categories)
-filtered_df.reset_index(drop=True, inplace=True)
-download_filtered_data(filtered_df, state_code=selected_state)
 
-# Show filtered data
-st.markdown(f"### Showing results for `{selected_state}` with selected categories: {len(filtered_df)} Total number of Observations")
-st.dataframe(filtered_df[["name", "city", "stars", "review_count"]], height=200)
+# Check if filters changed
+filters_changed = (
+    selected_state != st.session_state.prev_selected_state or
+    selected_categories != st.session_state.prev_selected_categories
+)
 
-# Map Visualization
-st.markdown("## 🗺️ Business Locations Map")
-st.caption("Only Up to 500 Business are displayed to avoid rendering issues")
+# Show map only if needed
+if filters_changed:
+    st.session_state.prev_selected_state = selected_state
+    st.session_state.prev_selected_categories = selected_categories
 
-map_df = filtered_df.copy()
-if len(map_df) > 500:
-    map_df = map_df.sample(500, random_state=42)
+    map_df = filtered_df.copy()
+    if len(map_df) > 500:
+        map_df = map_df.sample(500, random_state=42)
 
-show_business_map(map_df, state_code=selected_state,)
-
+    show_business_map(map_df, state_code=selected_state)

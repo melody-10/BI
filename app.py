@@ -22,7 +22,7 @@ with col1:
     selected_state = st.selectbox("📍 Select a State", sorted(df["state"].unique()))
 
 with col2:
-    selected_categories = st.multiselect("🏷️ Select Business Categories", sorted(df.columns[12:]))
+    selected_categories = st.multiselect("🏷️ Select Business Categories", sorted(df.columns[11:]))
 
 # Filter Data
 filtered_df = df[df["state"] == selected_state]
